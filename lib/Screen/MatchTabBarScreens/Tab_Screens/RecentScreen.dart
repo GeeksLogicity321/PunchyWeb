@@ -39,7 +39,7 @@ class RecentScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 4.w, top: 1.h),
+            padding: EdgeInsets.only(left: 400, top: 1.h),
             child: Text(
               'international',
               style: Theme.of(context)
@@ -58,7 +58,7 @@ class RecentScreen extends StatelessWidget {
                     );
               }),
           Padding(
-            padding: EdgeInsets.only(left: 4.w, top: 1.h),
+            padding: EdgeInsets.only(left: 400, top: 1.h),
             child: Text(
               'Domestic',
               style: Theme.of(context)

@@ -14,13 +14,8 @@ class MatchCardWeidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kPrimaryColor,
-      margin: EdgeInsets.symmetric(
-        vertical: 1.h,
-      ),
-      padding: EdgeInsets.symmetric(
-        vertical: 1.h,
-      ),
+      margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 500),
+      // paddins
       child: Material(
         color: Colors.white,
         child: InkWell(

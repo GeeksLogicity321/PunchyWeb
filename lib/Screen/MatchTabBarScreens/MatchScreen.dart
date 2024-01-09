@@ -29,6 +29,9 @@ class _MatchScreenState extends State<MatchScreen> {
           flexibleSpace: kDefaltAppBarColorGradient,
           title: Image.asset('assets/PUNCHY SPORTS.png'),
           bottom: const TabBar(
+            tabAlignment: TabAlignment.center,
+            unselectedLabelColor: Colors.white60,
+            labelColor: Colors.white,
             tabs: [
               Tab(text: 'Live'),
               Tab(text: 'Upcoming'),
