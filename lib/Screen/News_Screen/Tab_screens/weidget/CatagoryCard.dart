@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../constant/constants.dart';
 import '../SpecificCatagoryScreen.dart';
-import '../SpecificTopicScreen.dart';
 
 class CatagoryCard extends StatelessWidget {
   const CatagoryCard(
@@ -31,9 +30,15 @@ class CatagoryCard extends StatelessWidget {
             // Provider.of<NewsCatagoryProvider>(context, listen: false)
             //     .SelectCatagory(id);
 
-            Navigator.pushNamed(context, SpecificCatagoryScreen.routename);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SpecificCatagoryScreen()));
           } else {
-            Navigator.pushNamed(context, SpecificTopicScreen.routename);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SpecificCatagoryScreen()));
           }
         },
         child: Column(

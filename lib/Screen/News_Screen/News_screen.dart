@@ -30,10 +30,10 @@ class _NewsScreenState extends State<NewsScreen> {
             title: Image.asset('assets/PUNCHY SPORTS.png'),
             flexibleSpace: kDefaltAppBarColorGradient,
             bottom: const TabBar(
+              tabAlignment: TabAlignment.center,
               unselectedLabelColor: Colors.white60,
               labelColor: Colors.white,
               isScrollable: true,
-              // indicatorColor: yellowColor,
               tabs: [
                 Tab(text: 'All Stories'),
                 Tab(text: 'Catagories'),
@@ -42,6 +42,7 @@ class _NewsScreenState extends State<NewsScreen> {
             ),
           ),
           body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 500),
             decoration: const BoxDecoration(color: kPrimaryLightColor),
             child: TabBarView(
               children: _tabs,

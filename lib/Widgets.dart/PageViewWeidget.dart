@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../Screen/MatchDetailsScreens/MatchDetailsScreen.dart';
+import '../Screen/MatchScreen/MatchDetailsScreen.dart';
 
 class pageViewWidget extends StatelessWidget {
   const pageViewWidget({

@@ -1,40 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:punchy_web/Widgets.dart/TopNavBar.dart';
+import 'package:punchy_web/Screen/MatchScreen/MatchFrontPage.dart';
+import 'package:punchy_web/Screen/News_Screen/News_screen.dart';
+import '../constant/constants.dart';
+import 'MatchTabBarScreens/MatchScreen.dart';
 
-import '../Widgets.dart/PageViewWeidget.dart';
-import '../Widgets.dart/StoryWidget/HompageStoryCardWidget.dart';
-
-class FrontPage extends StatelessWidget {
+class FrontPage extends StatefulWidget {
   const FrontPage({super.key});
+
+  @override
+  State<FrontPage> createState() => _FrontPageState();
+}
+
+class _FrontPageState extends State<FrontPage> {
+  int currentPage = 1;
+  void changePage(int index) {
+    if (currentPage != index) {
+      currentPage = index;
+
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          TopNavBar(),
-          SizedBox(
-            height: 200,
-            width: double.infinity,
-            child: pageViewWidget(),
+          Container(
+            color: kPrimaryColor,
+            height: 70,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 200,
+                ),
+                Container(
+                  width: 110,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/Logo.png'),
+                          fit: BoxFit.contain)),
+                ),
+                SizedBox(
+                  width: 500,
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: TextButton(
+                        onPressed: () {},
+                        child: const Text('Home',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18)))),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MatchScreen()));
+                        },
+                        child: const Text('Matches',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18)))),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewsScreen()));
+                        },
+                        child: const Text('News',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18)))),
+                // pageToShow(),
+              ],
+            ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            width: 500,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 20,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return StoryCard(
-                    title: 'ponka',
-                    hline: 'this is the hline',
-                    intro: 'A quick brown fox jumps over a lazy dog',
-                  );
-                }),
-          )
+          MatchFrontPage(),
         ],
       ),
     );

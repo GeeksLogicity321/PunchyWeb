@@ -43,7 +43,8 @@ class AllStoriesCard extends StatelessWidget {
             // Provider.of<SpecificStoryProvider>(context, listen: false)
             //     .setid(id);
 
-            Navigator.pushNamed(context, SpecificStoryScreen.routename);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SpecificStoryScreen()));
           },
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
@@ -65,36 +66,27 @@ class AllStoriesCard extends StatelessWidget {
                     //         width: 30.w,
                     //       ),
                     //     )),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: kPrimaryColor),
-                            // softWrap: true,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            convertEpochToTimeAgo(pubTime),
-                            style: TextStyle(
-                                fontSize: 10.sp, color: kTextHintColor),
-                            // softWrap: true,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ],
-                      ),
+                    Text(
+                      title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: kPrimaryColor),
+                      // softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      convertEpochToTimeAgo('1704751176000'),
+                      style: TextStyle(fontSize: 15, color: kTextHintColor),
+                      // softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
                 Text(
                   subtitle,
-                  // overflow: ,
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!

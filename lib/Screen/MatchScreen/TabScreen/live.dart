@@ -36,7 +36,7 @@ class Live extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
-          width: double.infinity,
+          width: 500,
           height: 15.h,
           color: kSecondaryColor,
           child: Column(
@@ -86,38 +86,35 @@ class Live extends StatelessWidget {
         SizedBox(
           height: 0.5.h,
         ),
-        Expanded(
-          child: Container(
-            // height: 40.h,
-            color: kPrimaryLightColor,
-            child: ListView.builder(
-              // scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'overNumber',
-                        style: TextStyle(color: Colors.black, fontSize: 10),
-                      ),
-                      SizedBox(
-                        width: 2.w,
-                      ),
-                      Flexible(
-                          child: Text(
-                        'commentary',
-                        // convertText(currentindexCommentary),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )),
-                    ],
-                  ),
-                );
-              },
-            ),
+        SizedBox(
+          width: 500,
+          child: ListView.builder(
+            // scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'overNumber',
+                      style: TextStyle(color: Colors.black, fontSize: 10),
+                    ),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    Flexible(
+                        child: Text(
+                      'commentary',
+                      // convertText(currentindexCommentary),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )),
+                  ],
+                ),
+              );
+            },
           ),
         )
       ],
