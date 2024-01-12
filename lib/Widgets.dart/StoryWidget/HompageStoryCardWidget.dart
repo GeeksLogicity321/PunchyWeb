@@ -1,11 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../constant/api_constants.dart';
+
 class StoryCard extends StatelessWidget {
-  const StoryCard({super.key, this.image, this.title, this.hline, this.intro});
+  const StoryCard({
+    super.key,
+    required this.title,
+    this.image,
+    required this.subtitle,
+    required this.id,
+    required this.storycontext,
+  });
+  final String title;
   final String? image;
-  final String? title;
-  final String? hline;
-  final String? intro;
+  final String subtitle;
+  final String storycontext;
+  final int id;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,16 +29,19 @@ class StoryCard extends StatelessWidget {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: Image.network(
-              'https://images.pexels.com/photos/3628912/pexels-photo-3628912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              imageUrl: ApiConstants.image + image.toString(),
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  const Icon(Icons.error_outline),
             ),
           ),
           SizedBox(
             height: 4,
           ),
           Text(
-            "Sadhu, openers star in India's thumping win",
+            title,
             style: TextStyle(
                 decoration: TextDecoration.none,
                 color: Colors.black,
@@ -38,7 +52,7 @@ class StoryCard extends StatelessWidget {
             height: 4,
           ),
           Text(
-            "Titas Sadhu picked four wickets before India's openers put on a century stand",
+            subtitle,
             style: TextStyle(
               decoration: TextDecoration.none,
               color: Colors.grey,

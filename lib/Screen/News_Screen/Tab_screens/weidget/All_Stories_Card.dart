@@ -35,7 +35,7 @@ class AllStoriesCard extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.5))
           ],
           borderRadius: kBorderRadiusAll),
-      height: 20.h,
+      height: 100,
       child: Material(
         color: Colors.transparent,
         child: InkWell(

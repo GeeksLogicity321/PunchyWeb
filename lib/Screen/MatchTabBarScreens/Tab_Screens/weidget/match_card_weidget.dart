@@ -1,15 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../constant/constants.dart';
+import '../../../../Models/LiveMatchesModel.dart';
+import '../../../../constant/api_constants.dart';
 import '../../../MatchScreen/MatchDetailsScreen.dart';
 
 class MatchCardWeidget extends StatelessWidget {
-  MatchCardWeidget({
-    super.key,
-    //  required this.match
-  });
+  MatchCardWeidget({super.key, required this.match});
 
-  // Matches match;
+  Matches match;
 
   @override
   Widget build(BuildContext context) {
@@ -36,33 +36,33 @@ class MatchCardWeidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'matchDesc',
+                  match.matchInfo!.matchDesc!,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 kHeightSmallSizedBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // CachedNetworkImage(
-                    //   imageUrl: ApiConstants.image +
-                    //       match.matchInfo!.team1!.imageId!.toString(),
-                    //   placeholder: (context, url) => SizedBox(
-                    //       width: 7.w,
-                    //       height: 7.w,
-                    //       child: const CircularProgressIndicator()),
-                    //   errorWidget: (context, url, error) =>
-                    //       const Icon(Icons.flag_circle_outlined),
-                    //   width: 7.w,
-                    // ),
-                    Text('teamSName!',
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    // match.matchScore != null &&
-                    //         match.matchScore!.team1Score != null
-                    //     ? Text(
-                    //         '${match.matchScore!.team1Score!.inngs1!.runs}-${match.matchScore!.team1Score!.inngs1!.wickets} (${match.matchScore!.team1Score!.inngs1!.overs})',
-                    //         style: Theme.of(context).textTheme.bodyMedium,
-                    //       )
-                    // : SizedBox(),
+                    CachedNetworkImage(
+                      imageUrl: ApiConstants.image +
+                          match.matchInfo!.team1!.imageId!.toString(),
+                      placeholder: (context, url) => SizedBox(
+                          width: 7.w,
+                          height: 7.w,
+                          child: const CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.flag_circle_outlined),
+                      width: 7.w,
+                    ),
+                    // Text('teamSName!',
+                    //     style: Theme.of(context).textTheme.bodyMedium),
+                    match.matchScore != null &&
+                            match.matchScore!.team1Score != null
+                        ? Text(
+                            '${match.matchScore!.team1Score!.inngs1!.runs}-${match.matchScore!.team1Score!.inngs1!.wickets} (${match.matchScore!.team1Score!.inngs1!.overs})',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        : SizedBox(),
                     const SizedBox()
                   ],
                 ),
@@ -70,34 +70,34 @@ class MatchCardWeidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // CachedNetworkImage(
-                    //   imageUrl: ApiConstants.image +
-                    //       match.matchInfo!.team2!.imageId!.toString(),
-                    //   placeholder: (context, url) => SizedBox(
-                    //       width: 7.w,
-                    //       height: 7.w,
-                    //       child: const CircularProgressIndicator()),
-                    //   errorWidget: (context, url, error) =>
-                    //       const Icon(Icons.flag_circle_outlined),
-                    //   width: 7.w,
-                    // ),
-                    Text(
-                      'teamSName!',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    CachedNetworkImage(
+                      imageUrl: ApiConstants.image +
+                          match.matchInfo!.team2!.imageId!.toString(),
+                      placeholder: (context, url) => SizedBox(
+                          width: 7.w,
+                          height: 7.w,
+                          child: const CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.flag_circle_outlined),
+                      width: 7.w,
                     ),
-                    // match.matchScore != null &&
-                    //         match.matchScore!.team2Score != null
-                    //     ? Text(
-                    //         '${match.matchScore!.team2Score!.inngs1!.runs}-${match.matchScore!.team2Score!.inngs1!.wickets ?? 0} (${match.matchScore!.team2Score!.inngs1!.overs})',
-                    //         style: Theme.of(context).textTheme.bodyMedium,
-                    //       )
-                    //     : SizedBox(),
+                    // Text(
+                    //   'teamSName!',
+                    //   style: Theme.of(context).textTheme.bodyMedium,
+                    // ),
+                    match.matchScore != null &&
+                            match.matchScore!.team2Score != null
+                        ? Text(
+                            '${match.matchScore!.team2Score!.inngs1!.runs}-${match.matchScore!.team2Score!.inngs1!.wickets ?? 0} (${match.matchScore!.team2Score!.inngs1!.overs})',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        : SizedBox(),
                     const SizedBox()
                   ],
                 ),
                 kHeightSmallSizedBox,
                 Text(
-                  'status',
+                  match.matchInfo!.status ?? '',
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Models/StoriesModel.dart';
+import 'package:punchy_web/Prorvider/StoriesProvider.dart';
 import 'package:punchy_web/Screen/MatchScreen/MatchFrontPage.dart';
 import 'package:punchy_web/Screen/News_Screen/News_screen.dart';
 import '../constant/constants.dart';
@@ -12,6 +15,12 @@ class FrontPage extends StatefulWidget {
 }
 
 class _FrontPageState extends State<FrontPage> {
+  @override
+  void initState() {
+    context.read<StoriesProvider>().fetchStoriesWithRetry();
+    super.initState();
+  }
+
   int currentPage = 1;
   void changePage(int index) {
     if (currentPage != index) {

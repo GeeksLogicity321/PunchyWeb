@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../Prorvider/StoriesProvider.dart';
 import '../../Widgets.dart/PageViewWeidget.dart';
 import '../../Widgets.dart/StoryWidget/HompageStoryCardWidget.dart';
 
@@ -11,26 +13,36 @@ class MatchFrontPage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 200,
+          height: 220,
           width: double.infinity,
-          child: pageViewWidget(),
+          child: PageViewWidget(),
         ),
         SizedBox(
           height: 10,
         ),
         SizedBox(
           width: 500,
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 20,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return StoryCard(
-                  title: 'ponka',
-                  hline: 'this is the hline',
-                  intro: 'A quick brown fox jumps over a lazy dog',
-                );
-              }),
+          child: Consumer<StoriesProvider>(builder: (_, storiesProvider, __) {
+            if (storiesProvider.stories.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: storiesProvider.stories.length,
+                itemBuilder: (context, index) {
+                  final story = storiesProvider.stories[index];
+                  return StoryCard(
+                    storycontext: story.context,
+                    id: story.id,
+                    title: story.headline,
+                    subtitle: story.intro,
+                    image: story.coverImage.id,
+                  );
+                },
+              );
+            }
+          }),
         )
       ],
     );

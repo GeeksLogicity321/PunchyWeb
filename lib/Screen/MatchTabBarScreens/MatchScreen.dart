@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Prorvider/AllliveMatchesProvider.dart';
 import '../../../../constant/constants.dart';
 import 'Tab_Screens/LiveScreen.dart';
 import 'Tab_Screens/RecentScreen.dart';
@@ -12,6 +14,12 @@ class MatchScreen extends StatefulWidget {
 }
 
 class _MatchScreenState extends State<MatchScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AllLiveMatchesProvider>().fetchMatches();
+  }
+
   final List<Widget> _tabs = [
     const LiveScreen(),
     const UpcomingScreen(),

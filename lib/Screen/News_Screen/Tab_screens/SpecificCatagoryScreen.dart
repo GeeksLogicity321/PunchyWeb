@@ -20,19 +20,22 @@ class SpecificCatagoryScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: kPrimaryLightColor,
-        body: ListView.builder(
-          // scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return AllStoriesCard(
-              pubTime: 'pubTime',
-              id: 10,
-              title: 'hline!',
-              subtitle: 'intro',
-              image: 'imageId',
-            );
-          },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 500),
+          child: ListView.builder(
+            // scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return AllStoriesCard(
+                pubTime: 'pubTime',
+                id: 10,
+                title: 'hline!',
+                subtitle: 'intro',
+                image: 'imageId',
+              );
+            },
+          ),
         ));
   }
 }
