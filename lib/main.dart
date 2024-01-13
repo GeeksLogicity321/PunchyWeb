@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:punchy_web/Prorvider/AllRecentMatchesprovider.dart';
+import 'package:punchy_web/Prorvider/AllUpcomingMatchessProvider.dart';
 import 'package:punchy_web/Prorvider/AllliveMatchesProvider.dart';
 import 'package:punchy_web/Screen/FrontPage.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Prorvider/HomepageMachesProvider.dart';
+import 'Prorvider/News_CatagoryProvider.dart';
 import 'Prorvider/StoriesProvider.dart';
 
 void main() {
@@ -27,7 +30,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => AllLiveMatchesProvider(),
           ),
-          ChangeNotifierProvider(create: (context) => StoriesProvider())
+          ChangeNotifierProvider(create: (context) => StoriesProvider()),
+          ChangeNotifierProvider(
+              create: (context) => AllUpcomingMatchesProvider()),
+          ChangeNotifierProvider(
+              create: (context) => AllRecentMatchesProvider()),
+          ChangeNotifierProvider(create: (context) => NewsCatagoryProvider())
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,

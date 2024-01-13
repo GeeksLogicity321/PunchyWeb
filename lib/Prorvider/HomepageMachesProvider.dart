@@ -49,7 +49,6 @@ class AllHomeInternationalMatchInfoProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = json.decode(response.body);
-        print(jsonResponse);
 
         for (Map<String, dynamic> i1 in jsonResponse) {
           for (Map<String, dynamic> i2 in i1['seriesMatches']) {

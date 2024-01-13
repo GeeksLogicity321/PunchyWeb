@@ -12,34 +12,6 @@ class AllRecentMatchesProvider extends ChangeNotifier {
 
   List<LiveMatchesModel> get allRecentMatchesInfo => _allRecentMatchesInfo;
 
-  int? _selected;
-
-  get selected => _selected;
-
-  Future<void> fetchMatchesWithRetry() async {
-    const maxRetries = 3;
-    int retryCount = 0;
-
-    while (retryCount < maxRetries) {
-      try {
-        await fetchMatches();
-
-        break;
-      } catch (e) {
-        print('Error cannot connect to Upcoming matches api: $e');
-        retryCount++;
-
-        if (retryCount < maxRetries) {
-          await Future.delayed(const Duration(seconds: 2));
-        } else {
-          print(
-              'Failed to fetch Upcoming matches api after $maxRetries attempts');
-          break;
-        }
-      }
-    }
-  }
-
   Future<void> fetchMatches() async {
     try {
       final Uri url = Uri.parse(ApiConstants.allRecentMatches);
@@ -68,9 +40,5 @@ class AllRecentMatchesProvider extends ChangeNotifier {
     } catch (e) {
       print('error:$e');
     }
-  }
-
-  void setSelected(int id) {
-    _selected = id;
   }
 }

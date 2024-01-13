@@ -14,8 +14,7 @@ class MatchCardWeidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 500),
-      // paddins
+      margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 600),
       child: Material(
         color: Colors.white,
         child: InkWell(
@@ -54,8 +53,6 @@ class MatchCardWeidget extends StatelessWidget {
                           const Icon(Icons.flag_circle_outlined),
                       width: 7.w,
                     ),
-                    // Text('teamSName!',
-                    //     style: Theme.of(context).textTheme.bodyMedium),
                     match.matchScore != null &&
                             match.matchScore!.team1Score != null
                         ? Text(
@@ -86,7 +83,8 @@ class MatchCardWeidget extends StatelessWidget {
                     //   style: Theme.of(context).textTheme.bodyMedium,
                     // ),
                     match.matchScore != null &&
-                            match.matchScore!.team2Score != null
+                            match.matchScore!.team2Score != null &&
+                            match.matchScore!.team2Score!.inngs1 != null
                         ? Text(
                             '${match.matchScore!.team2Score!.inngs1!.runs}-${match.matchScore!.team2Score!.inngs1!.wickets ?? 0} (${match.matchScore!.team2Score!.inngs1!.overs})',
                             style: Theme.of(context).textTheme.bodyMedium,

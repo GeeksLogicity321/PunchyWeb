@@ -9,36 +9,13 @@ import 'weidget/match_card_weidget.dart';
 class LiveScreen extends StatelessWidget {
   const LiveScreen({super.key});
 
-  // List<Matches> getMatches(
-  //     String match, List<LiveMatchesModel> allLiveMatchesInfo) {
-  //   List<LiveMatchesModel> listOfMatches = [];
-
-  //   listOfMatches = allLiveMatchesInfo.where((element) {
-  //     return element.matchType == match;
-  //   }).toList();
-  //   List<Matches> allMatches = [];
-  //   for (var i in listOfMatches) {
-  //     for (var i2 in i.seriesMatches!) {
-  //       if (i2.seriesAdWrapper != null) {
-  //         for (var i3 in i2.seriesAdWrapper!.matches!) {
-  //           allMatches.add(i3);
-  //         }
-  //       } else {
-  //         null;
-  //       }
-  //     }
-  //   }
-
-  //   return allMatches;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kCardColor,
-      body: Consumer<AllLiveMatchesProvider>(builder: (_, liveMatches, __t) {
+      body: Consumer<AllLiveMatchesProvider>(builder: (_, liveMatches, __) {
         return liveMatches.allLiveMatchesInfo.isEmpty
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : StreamBuilder(
                 stream: Stream.periodic(const Duration(seconds: 50), (i) {
                   context.read<AllLiveMatchesProvider>().fetchMatches();
@@ -47,7 +24,7 @@ class LiveScreen extends StatelessWidget {
                   final liveMatches = context
                       .watch<AllLiveMatchesProvider>()
                       .allLiveMatchesInfo;
-                  print('Recalling LiveMatches api after 5 seconds... ');
+                  // print('Recalling LiveMatches api after 5 seconds... ');
                   return SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,22 +59,24 @@ class LiveScreen extends StatelessWidget {
                                         final currentMatch = currentMatchType
                                             .seriesMatches![index];
 
-                                        return currentMatch == SeriesAdWrapper
+                                        return currentMatch.seriesAdWrapper !=
+                                                null
                                             ? Column(
                                                 children: [
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         left: 4, top: 1.h),
                                                     child: Text(
-                                                      currentMatchType
-                                                              .matchType ??
+                                                      currentMatch
+                                                              .seriesAdWrapper!
+                                                              .seriesName ??
                                                           '',
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodySmall!
                                                           .copyWith(
                                                               color:
-                                                                  kOtherColor,
+                                                                  Colors.grey,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
@@ -117,14 +96,11 @@ class LiveScreen extends StatelessWidget {
                                                             currentMatch
                                                                 .seriesAdWrapper!
                                                                 .matches!;
-                                                        return currentMatch ==
-                                                                SeriesAdWrapper
-                                                            ? SizedBox()
-                                                            : MatchCardWeidget(
-                                                                match:
-                                                                    currentMatches2[
-                                                                        index],
-                                                              );
+                                                        return MatchCardWeidget(
+                                                          match:
+                                                              currentMatches2[
+                                                                  index],
+                                                        );
                                                       }),
                                                 ],
                                               )
