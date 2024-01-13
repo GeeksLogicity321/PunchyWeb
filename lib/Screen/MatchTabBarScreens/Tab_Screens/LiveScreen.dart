@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:punchy_web/Models/LiveMatchesModel.dart';
 import 'package:punchy_web/Prorvider/AllliveMatchesProvider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../constant/constants.dart';

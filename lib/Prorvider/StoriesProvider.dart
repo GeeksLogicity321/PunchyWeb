@@ -13,29 +13,6 @@ class StoriesProvider extends ChangeNotifier {
 
   get selected => _selected;
 
-  Future<void> fetchStoriesWithRetry() async {
-    const maxRetries = 3;
-    int retryCount = 0;
-
-    while (retryCount < maxRetries) {
-      try {
-        await fetchStories();
-
-        break;
-      } catch (e) {
-        print('Error while fetching stories: $e');
-        retryCount++;
-
-        if (retryCount < maxRetries) {
-          await Future.delayed(const Duration(seconds: 2));
-        } else {
-          print('Failed to fetch stories after $maxRetries attempts');
-          break;
-        }
-      }
-    }
-  }
-
   Future<void> fetchStories() async {
     try {
       final Uri url = Uri.parse(ApiConstants.sportsNews);

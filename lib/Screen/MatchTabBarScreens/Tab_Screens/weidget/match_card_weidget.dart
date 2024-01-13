@@ -7,9 +7,9 @@ import '../../../../constant/api_constants.dart';
 import '../../../MatchScreen/MatchDetailsScreen.dart';
 
 class MatchCardWeidget extends StatelessWidget {
-  MatchCardWeidget({super.key, required this.match});
+  const MatchCardWeidget({super.key, required this.match});
 
-  Matches match;
+  final Matches match;
 
   @override
   Widget build(BuildContext context) {

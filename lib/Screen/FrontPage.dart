@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:punchy_web/Models/StoriesModel.dart';
 import 'package:punchy_web/Prorvider/StoriesProvider.dart';
 import 'package:punchy_web/Screen/MatchScreen/MatchFrontPage.dart';
 import 'package:punchy_web/Screen/News_Screen/News_screen.dart';
@@ -17,7 +16,7 @@ class FrontPage extends StatefulWidget {
 class _FrontPageState extends State<FrontPage> {
   @override
   void initState() {
-    context.read<StoriesProvider>().fetchStoriesWithRetry();
+    context.read<StoriesProvider>().fetchStories();
     super.initState();
   }
 
@@ -40,7 +39,7 @@ class _FrontPageState extends State<FrontPage> {
             height: 70,
             child: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 200,
                 ),
                 Container(

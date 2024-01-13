@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Models/AllTopics.dart';
 import 'weidget/CatagoryCard.dart';
 
 class TopicsScreen extends StatelessWidget {
@@ -22,16 +24,25 @@ class TopicsScreen extends StatelessWidget {
 }
 
 Widget buildTopicsList() {
-  return ListView.builder(
-    itemCount: 10,
-    itemBuilder: (BuildContext context, int index) {
-      // final currentindextopics = topics![index];
-      return CatagoryCard(
-        istopic: true,
-        id: 10,
-        title: 'headline',
-        subtitle: 'description',
+  return Consumer<TopicsProvider>(builder: (_, topicsProvider, __) {
+    if (topicsProvider.topics.isEmpty) {
+      topicsProvider.fetchTopics();
+      return Center(
+        child: CircularProgressIndicator(),
       );
-    },
-  );
+    } else {
+      return ListView.builder(
+        itemCount: topicsProvider.topics.length,
+        itemBuilder: (BuildContext context, int index) {
+          final currentindextopics = topicsProvider.topics[index];
+          return CatagoryCard(
+            istopic: true,
+            id: currentindextopics.id!,
+            title: currentindextopics.headline,
+            subtitle: currentindextopics.description,
+          );
+        },
+      );
+    }
+  });
 }

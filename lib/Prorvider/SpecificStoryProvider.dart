@@ -18,29 +18,6 @@ class SpecificStoryProvider extends ChangeNotifier {
 
   get selected => _selected;
 
-  Future<void> fetchSpecificStoriesWithRetry() async {
-    const maxRetries = 3;
-    int retryCount = 0;
-
-    while (retryCount < maxRetries) {
-      try {
-        await fetchSpecificStories();
-
-        break;
-      } catch (e) {
-        print('Error while fetching stories: $e');
-        retryCount++;
-
-        if (retryCount < maxRetries) {
-          await Future.delayed(const Duration(seconds: 2));
-        } else {
-          print('Failed to fetch Specificstories after $maxRetries attempts');
-          break;
-        }
-      }
-    }
-  }
-
   Future<void> fetchSpecificStories() async {
     try {
       final Uri url =
