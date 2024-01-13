@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../constant/constants.dart';
+import '../../../../Prorvider/SpecificStoryProvider.dart';
 import '../../../../Utills/ConvertTime.dart';
+import '../../../../constant/api_constants.dart';
 import '../../SpecificStoryScreen.dart';
 
 class AllStoriesCard extends StatelessWidget {
@@ -35,65 +39,64 @@ class AllStoriesCard extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.5))
           ],
           borderRadius: kBorderRadiusAll),
-      height: 100,
+      // height: 100,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            // Provider.of<SpecificStoryProvider>(context, listen: false)
-            //     .setid(id);
+            context.read<SpecificStoryProvider>().setid(id);
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SpecificStoryScreen()));
           },
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Padding(
-                    //     padding: EdgeInsets.only(right: 2.w, bottom: 1.h),
-                    //     child: ClipRRect(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       child: CachedNetworkImage(
-                    //         imageUrl: ApiConstants.image + image.toString(),
-                    //         placeholder: (context, url) => const Center(
-                    //             child: CircularProgressIndicator()),
-                    //         errorWidget: (context, url, error) =>
-                    //             const Icon(Icons.error_outline),
-                    //         width: 30.w,
-                    //       ),
-                    //     )),
-                    Text(
-                      title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: kPrimaryColor),
-                      // softWrap: true,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      convertEpochToTimeAgo('1704751176000'),
-                      style: TextStyle(fontSize: 15, color: kTextHintColor),
-                      // softWrap: true,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CachedNetworkImage(
+                  imageUrl: ApiConstants.image + image.toString(),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error_outline),
+                  width: double.infinity,
                 ),
-                Text(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(color: kPrimaryColor),
+                  // softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 8),
+                child: Text(
+                  convertEpochToTimeAgo('1704751176000'),
+                  style: TextStyle(fontSize: 10, color: kTextHintColor),
+                  // softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, bottom: 8, top: 4),
+                child: Text(
                   subtitle,
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
                       .copyWith(color: kTextLightColor),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

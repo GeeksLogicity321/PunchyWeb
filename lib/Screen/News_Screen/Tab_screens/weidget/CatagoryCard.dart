@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Prorvider/NewsTopicsProvider.dart';
+import 'package:punchy_web/Prorvider/News_CatagoryProvider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../constant/constants.dart';
 import '../SpecificCatagoryScreen.dart';
@@ -26,19 +29,22 @@ class CatagoryCard extends StatelessWidget {
             shape:
                 const RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
         onPressed: () {
-          if (istopic != true) {
-            // Provider.of<NewsCatagoryProvider>(context, listen: false)
-            //     .SelectCatagory(id);
-
+          if (istopic) {
+            context.read<NewsTopicsProvider>().setid(id);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SpecificCatagoryScreen()));
+                    builder: (context) => SpecificCatagoryScreen(
+                          istopic: istopic,
+                        )));
           } else {
+            context.read<NewsCatagoryProvider>().SelectCatagory(id);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SpecificCatagoryScreen()));
+                    builder: (context) => SpecificCatagoryScreen(
+                          istopic: istopic,
+                        )));
           }
         },
         child: Column(

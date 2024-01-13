@@ -53,6 +53,6 @@ class SpecificStoryProvider extends ChangeNotifier {
 
   void setid(int id) {
     _selected = id;
-    print('id set to $id');
+    fetchSpecificStories();
   }
 }

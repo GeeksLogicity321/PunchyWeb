@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:punchy_web/Prorvider/AllRecentMatchesprovider.dart';
 import 'package:punchy_web/Prorvider/AllUpcomingMatchessProvider.dart';
 import 'package:punchy_web/Prorvider/AllliveMatchesProvider.dart';
+import 'package:punchy_web/Prorvider/NewsTopicsProvider.dart';
 import 'package:punchy_web/Screen/FrontPage.dart';
 import 'package:sizer/sizer.dart';
 
-import 'Models/AllTopics.dart';
 import 'Prorvider/HomepageMachesProvider.dart';
 import 'Prorvider/News_CatagoryProvider.dart';
+import 'Prorvider/SpecificStoryProvider.dart';
 import 'Prorvider/StoriesProvider.dart';
 
 void main() {
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (context) => AllRecentMatchesProvider()),
           ChangeNotifierProvider(create: (context) => NewsCatagoryProvider()),
-          ChangeNotifierProvider(create: (context) => TopicsProvider())
+          ChangeNotifierProvider(create: (context) => NewsTopicsProvider()),
+          ChangeNotifierProvider(create: (context) => SpecificStoryProvider())
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,

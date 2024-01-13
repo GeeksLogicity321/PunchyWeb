@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../Models/CatagoryModel.dart';
-import '../Models/SpecificCatagoryModel.dart';
+import '../Models/StoriesModel.dart';
 import '../constant/api_constants.dart';
 
 class NewsCatagoryProvider extends ChangeNotifier {
@@ -11,14 +11,15 @@ class NewsCatagoryProvider extends ChangeNotifier {
   Catagory get catagories => _catagories;
 
   bool hasSpecificCatagorydata = false;
-  List<SpecificCategoryModel> _specificCatagories = [];
-  List<SpecificCategoryModel> get specificCatagories => _specificCatagories;
+  List<StoriesModel> _specificCatagories = [];
+  List<StoriesModel> get specificCatagories => _specificCatagories;
 
   int? _selected;
 
   get selected => _selected;
 
   Future<void> fetchCatagory() async {
+    notifyListeners();
     try {
       print('catagories api call');
       final Uri url = Uri.parse(ApiConstants.catagory);
@@ -36,12 +37,15 @@ class NewsCatagoryProvider extends ChangeNotifier {
       } else {
         throw Exception('Error cannot connect to News/Catagories');
       }
+      notifyListeners();
     } catch (e) {
       print('error:$e');
+      notifyListeners();
     }
   }
 
   Future<void> fetchSpecificCatagory() async {
+    notifyListeners();
     try {
       final Uri url =
           Uri.parse(ApiConstants.specificCatagory + _selected.toString());
@@ -64,17 +68,19 @@ class NewsCatagoryProvider extends ChangeNotifier {
         }
 
         _specificCatagories =
-            storylist.map((e) => SpecificCategoryModel.fromJson(e)).toList();
+            storylist.map((e) => StoriesModel.fromJson(e)).toList();
       } else {
         throw Exception('Error cannot connect to News/Specific_Catagories');
       }
+      notifyListeners();
     } catch (e) {
       print('error:$e');
+      notifyListeners();
     }
   }
 
   void SelectCatagory(int id) {
     _selected = id;
-    print('id set to $id');
+    fetchSpecificCatagory();
   }
 }

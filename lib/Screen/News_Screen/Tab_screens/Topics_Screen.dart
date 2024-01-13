@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:punchy_web/Models/AllTopics.dart';
+import 'package:punchy_web/Prorvider/NewsTopicsProvider.dart';
 import 'weidget/CatagoryCard.dart';
 
 class TopicsScreen extends StatelessWidget {
@@ -24,10 +24,10 @@ class TopicsScreen extends StatelessWidget {
 }
 
 Widget buildTopicsList() {
-  return Consumer<TopicsProvider>(builder: (_, topicsProvider, __) {
+  return Consumer<NewsTopicsProvider>(builder: (_, topicsProvider, __) {
     if (topicsProvider.topics.isEmpty) {
       topicsProvider.fetchTopics();
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     } else {
