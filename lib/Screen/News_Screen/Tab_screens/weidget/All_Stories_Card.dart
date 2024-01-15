@@ -45,9 +45,8 @@ class AllStoriesCard extends StatelessWidget {
         child: InkWell(
           onTap: () {
             context.read<SpecificStoryProvider>().setid(id);
-
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SpecificStoryScreen()));
+                MaterialPageRoute(builder: (context) => const SpecificStoryScreen()));
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

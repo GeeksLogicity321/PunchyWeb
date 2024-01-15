@@ -4,6 +4,7 @@ class SpecificStoryModel {
   CoverImage? coverImage;
   List<Content>? content;
   List<Authors>? authors;
+  String? pubTime;
 
   SpecificStoryModel({
     this.id,
@@ -11,12 +12,15 @@ class SpecificStoryModel {
     this.coverImage,
     this.content,
     this.authors,
+    this.pubTime,
   });
 
   SpecificStoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
 
     headline = json['headline'];
+
+    pubTime = json['lastUpdatedTime'];
 
     coverImage = json['coverImage'] != null
         ? CoverImage.fromJson(json['coverImage'])
