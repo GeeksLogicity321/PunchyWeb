@@ -4,6 +4,7 @@ import 'package:punchy_web/Prorvider/AllRecentMatchesprovider.dart';
 import 'package:punchy_web/Prorvider/AllUpcomingMatchessProvider.dart';
 import 'package:punchy_web/Prorvider/AllliveMatchesProvider.dart';
 import 'package:punchy_web/Prorvider/NewsTopicsProvider.dart';
+import 'package:punchy_web/Prorvider/SpecificMatchDetailProvider.dart';
 import 'package:punchy_web/Screen/FrontPage.dart';
 import 'package:sizer/sizer.dart';
 
@@ -39,7 +40,9 @@ class MyApp extends StatelessWidget {
               create: (context) => AllRecentMatchesProvider()),
           ChangeNotifierProvider(create: (context) => NewsCatagoryProvider()),
           ChangeNotifierProvider(create: (context) => NewsTopicsProvider()),
-          ChangeNotifierProvider(create: (context) => SpecificStoryProvider())
+          ChangeNotifierProvider(create: (context) => SpecificStoryProvider()),
+          ChangeNotifierProvider(
+              create: (context) => SpecificMatchDetailProvider())
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,

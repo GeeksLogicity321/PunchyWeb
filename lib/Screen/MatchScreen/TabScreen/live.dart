@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Prorvider/SpecificMatchDetailProvider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constant/constants.dart';
@@ -34,55 +36,70 @@ class Live extends StatelessWidget {
     // final commentayProvider = Provider.of<CommentaryListProvider>(context);
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
-          width: 500,
-          height: 15.h,
-          color: kSecondaryColor,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('batTeamName'),
-                      Text('batTeamName'),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '${'score '}-(${'overs'})',
-                        style: const TextStyle(color: kTextBlackColor),
-                      ),
-                      Text(
-                        '${'score'}-(${'overs'})',
-                        style: const TextStyle(color: kTextBlackColor),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [Text('CRR'), Text('currentRunRate')],
-                  ),
-                  const SizedBox(),
-                ],
-              ),
-              Text(
-                'customStatus',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.blue),
-              ),
-            ],
-          ),
-        ),
+        Consumer<SpecificMatchDetailProvider>(
+            builder: (_, specificMatchDetailProvider, __) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+            width: 500,
+            height: 15.h,
+            color: kSecondaryColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    specificMatchDetailProvider.matchinfoIsLoading
+                        ? SizedBox()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(specificMatchDetailProvider
+                                  .matchinfo!
+                                  .matchInfo!
+                                  .matchTeamInfo!
+                                  .last
+                                  .battingTeamShortName!),
+                              Text(specificMatchDetailProvider
+                                  .matchinfo!
+                                  .matchInfo!
+                                  .matchTeamInfo!
+                                  .last
+                                  .bowlingTeamShortName!),
+                            ],
+                          ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${'score '}-(${'overs'})',
+                          style: TextStyle(color: kTextBlackColor),
+                        ),
+                        Text(
+                          '${'score'}-(${'overs'})',
+                          style: TextStyle(color: kTextBlackColor),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [Text('CRR'), Text('currentRunRate')],
+                    ),
+                    SizedBox(),
+                  ],
+                ),
+                Text(
+                  'customStatus',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.blue),
+                ),
+              ],
+            ),
+          );
+        }),
         SizedBox(
           height: 0.5.h,
         ),
@@ -98,7 +115,7 @@ class Live extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'overNumber',
                       style: TextStyle(color: Colors.black, fontSize: 10),
                     ),

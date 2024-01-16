@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:punchy_web/constant/api_constants.dart';
 
 import '../Prorvider/HomepageMachesProvider.dart';
+import '../Prorvider/SpecificMatchDetailProvider.dart';
 import '../Screen/MatchScreen/MatchDetailsScreen.dart';
 
 class PageViewWidget extends StatelessWidget {
@@ -49,6 +50,9 @@ class PageViewWidget extends StatelessWidget {
                     elevation: 5,
                     child: InkWell(
                       onTap: () {
+                        context.read<SpecificMatchDetailProvider>().setSelected(
+                            allHomematchsInfoProvider
+                                .matches[index].matchInfo!.matchId!);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

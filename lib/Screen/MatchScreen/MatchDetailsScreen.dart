@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../Prorvider/SpecificMatchDetailProvider.dart';
 import '../../constant/constants.dart';
 import 'TabScreen/Highlights.dart';
 import 'TabScreen/Overs.dart';
@@ -92,17 +94,22 @@ class _MatchStatusScreenState extends State<MatchStatusScreen>
         appBar: AppBar(
           automaticallyImplyLeading: true,
           flexibleSpace: kDefaltAppBarColorGradient,
-          title: Text(
-            'Nez vs Pak',
-            style: TextStyle(color: Colors.white),
-          ),
-          bottom: TabBar(
+          title: Consumer<SpecificMatchDetailProvider>(
+              builder: (_, specificMatchDetailProvider, __) {
+            return specificMatchDetailProvider.matchinfoIsLoading
+                ? SizedBox()
+                : Text(
+                    '${specificMatchDetailProvider.matchinfo!.matchInfo!.team1!.name!} vs ${specificMatchDetailProvider.matchinfo!.matchInfo!.team2!.name!}',
+                    style: const TextStyle(color: Colors.white),
+                  );
+          }),
+          bottom: const TabBar(
             unselectedLabelColor: Colors.white54,
             labelColor: Colors.white,
             tabAlignment: TabAlignment.center,
             // onTap: (value) => _ontap(value),
             isScrollable: true,
-            tabs: const [
+            tabs: [
               Tab(
                 text: 'INFO',
               ),

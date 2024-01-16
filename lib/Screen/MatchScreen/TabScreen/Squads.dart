@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punchy_web/Prorvider/SpecificMatchDetailProvider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../constant/api_constants.dart';
 import '../../../constant/constants.dart';
 
 class Squads extends StatelessWidget {
@@ -18,94 +21,122 @@ class Squads extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(),
-              Text(
-                'team 1',
-                style: const TextStyle(
-                    color: kSecondaryColor, fontWeight: FontWeight.bold),
-              ),
+              Consumer<SpecificMatchDetailProvider>(
+                  builder: (_, specificMatchDetailProvider, __) {
+                return specificMatchDetailProvider.matchinfoIsLoading
+                    ? SizedBox()
+                    : Text(
+                        specificMatchDetailProvider
+                            .matchinfo!.matchInfo!.team1!.name!,
+                        style: TextStyle(
+                            color: kSecondaryColor,
+                            fontWeight: FontWeight.bold),
+                      );
+              }),
               SizedBox(
                 width: 40.w,
               ),
-              Text(
-                'team 2',
-                style: const TextStyle(
-                    color: kSecondaryColor, fontWeight: FontWeight.bold),
-              ),
+              Consumer<SpecificMatchDetailProvider>(
+                  builder: (_, specificMatchDetailProvider, __) {
+                return specificMatchDetailProvider.matchinfoIsLoading
+                    ? SizedBox()
+                    : Text(
+                        specificMatchDetailProvider
+                            .matchinfo!.matchInfo!.team2!.name!,
+                        style: TextStyle(
+                            color: kSecondaryColor,
+                            fontWeight: FontWeight.bold),
+                      );
+              }),
               const SizedBox(),
             ],
           ),
         ),
         const Text('Squad'),
         Expanded(
-          child: ListView.builder(
-            itemCount: 11,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 0.25.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 7.h,
-                      width: 49.5.w,
-                      child: ListTile(
-                        onTap: () {},
-                        tileColor: kSecondaryColor,
-                        // leading: ClipOval(
-                        //   child: Image.network(
-                        //     ApiConstants.image +
-                        //         currentIndexSquad.faceImageId
-                        //             .toString(),
-                        //     width: 10.w,
-                        //     height: 10.w,
-                        //   ),
-                        // ),
-                        title: Text(
-                          'squad',
-                          style: Theme.of(context).textTheme.bodySmall,
+          child: Consumer<SpecificMatchDetailProvider>(
+              builder: (_, specificMatchDetailProvider, __) {
+            return specificMatchDetailProvider.matchinfoIsLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView.builder(
+                    itemCount: specificMatchDetailProvider
+                        .matchinfo!.matchInfo!.team1!.playerDetails!.length,
+                    itemBuilder: (context, index) {
+                      final team1 = specificMatchDetailProvider
+                          .matchinfo!.matchInfo!.team1!.playerDetails![index];
+                      final team2 = specificMatchDetailProvider
+                          .matchinfo!.matchInfo!.team2!.playerDetails![index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 0.25.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 7.h,
+                              width: 49.5.w,
+                              child: ListTile(
+                                onTap: () {},
+                                tileColor: kSecondaryColor,
+                                leading: ClipOval(
+                                  child: Image.network(
+                                    ApiConstants.image +
+                                        team1.faceImageId.toString(),
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                title: Text(
+                                  team1.fullName!,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                subtitle: Text(
+                                  team1.role!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: Colors.grey, fontSize: 7),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 7.h,
+                              width: 49.5.w,
+                              child: ListTile(
+                                onTap: () {},
+                                tileColor: kSecondaryColor,
+                                leading: ClipOval(
+                                  child: Image.network(
+                                    ApiConstants.image +
+                                        team2.faceImageId.toString(),
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                title: Text(
+                                  team2.fullName!,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                subtitle: Text(
+                                  team2.role!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: Colors.grey, fontSize: 7),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        subtitle: Text(
-                          'squad2',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.grey, fontSize: 7.sp),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 7.h,
-                      width: 49.5.w,
-                      child: ListTile(
-                        onTap: () {},
-                        tileColor: kSecondaryColor,
-                        // leading: ClipOval(
-                        //   child: Image.network(
-                        //     ApiConstants.image +
-                        //         currentIndexSquad2.faceImageId
-                        //             .toString(),
-                        //     width: 10.w,
-                        //     height: 10.w,
-                        //   ),
-                        // ),
-                        title: Text(
-                          'currentIndexSquad2',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        subtitle: Text(
-                          'currentIndexSquad2',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.grey, fontSize: 7.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+                      );
+                    },
+                  );
+          }),
         )
       ],
     );

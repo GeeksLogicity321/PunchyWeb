@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Prorvider/SpecificMatchDetailProvider.dart';
+import '../../../Utills/ConvertTime.dart';
 import '../../../constant/constants.dart';
 
 class Info extends StatelessWidget {
@@ -19,12 +22,12 @@ class Info extends StatelessWidget {
           //   trailing: Icon(Icons.arrow_forward_ios_outlined),
           // ),
           Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               width: double.infinity,
               color: const Color.fromARGB(66, 158, 158, 158),
-              child: Text(
+              child: const Text(
                 'INFO',
                 style: TextStyle(fontSize: 15, color: Colors.grey),
                 textAlign: TextAlign.center,
@@ -74,112 +77,126 @@ class Info extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // match tag line
-                  Text(
-                    'matchDescription',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // series name
-                  Text(
-                    'name',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // start date
-                  Text(
-                    'formattedDate',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // match time
-                  Text(
-                    'formattedtime',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // match short name
-                  Text(
-                    'shortStatus',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // match venue
-                  Text(
-                    'name',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // umpire1
-                  Text(
-                    'name',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  // umpire 3
-                  Text(
-                    'name',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Colors.grey),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
+              Consumer<SpecificMatchDetailProvider>(
+                  builder: (_, matchInfoProvider, __) {
+                return matchInfoProvider.matchinfoIsLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // match tag line
+                          Text(
+                            matchInfoProvider
+                                    .matchinfo!.matchInfo!.matchDescription ??
+                                '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // series name
+                          Text(
+                            matchInfoProvider
+                                    .matchinfo!.matchInfo!.series!.name ??
+                                '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // start date
+                          Text(
+                            EpochToDate(matchInfoProvider
+                                .matchinfo!.matchInfo!.matchStartTimestamp!),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // match time
+                          Text(
+                            'formattedtime',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // match short name
+                          Text(
+                            '${matchInfoProvider.matchinfo!.matchInfo!.tossResults!.tossWinnerName ?? ''} won the toss',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // match venue
+                          Text(
+                            matchInfoProvider.matchinfo!.venueInfo!.ground!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // umpire1
+                          Text(
+                            matchInfoProvider
+                                    .matchinfo!.matchInfo!.umpire1!.name ??
+                                '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // umpire 3
+                          Text(
+                            matchInfoProvider
+                                    .matchinfo!.matchInfo!.umpire3!.name ??
+                                '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.grey),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      );
+              }),
               const SizedBox()
             ],
           ),
@@ -189,7 +206,7 @@ class Info extends StatelessWidget {
               ),
               width: double.infinity,
               color: const Color.fromARGB(66, 158, 158, 158),
-              child: Text(
+              child: const Text(
                 'VENUE GUIDE',
                 style: TextStyle(fontSize: 15, color: Colors.grey),
                 textAlign: TextAlign.center,
@@ -233,82 +250,93 @@ class Info extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // stadium
-                    Text(
-                      'name',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.grey),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // city
-                    Text(
-                      'city',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.grey),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // capacity
-                    Text(
-                      'capacity',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.grey),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // Ends
+                Consumer<SpecificMatchDetailProvider>(
+                    builder: (_, matchInfoProvider, __) {
+                  return matchInfoProvider.matchinfoIsLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // stadium
+                            Text(
+                              matchInfoProvider.matchinfo!.venueInfo!.knownAs ??
+                                  'unknown',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            // city
+                            Text(
+                              matchInfoProvider.matchinfo!.venueInfo!.city!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            // capacity
+                            Text(
+                              matchInfoProvider
+                                      .matchinfo!.venueInfo!.capacity ??
+                                  'unknown',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            // Ends
 
-                    Text(
-                      'endDate',
-                      // allinfo.matchInfo!.series!.endDate == null
-                      //     ? 'Not assigned'
-                      //     : allinfo.matchInfo!.series!.endDate
-                      //         .toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.grey),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // toss
-                    Text(
-                      'tossWinnerName',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.grey),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // Hosts to
-                  ],
-                ),
+                            Text(
+                              EpochToDate(matchInfoProvider.matchinfo!
+                                  .matchInfo!.matchCompleteTimestamp!),
+                              // allinfo.matchInfo!.series!.endDate == null
+                              //     ? 'Not assigned'
+                              //     : allinfo.matchInfo!.series!.endDate
+                              //         .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            // toss
+                            Text(
+                              matchInfoProvider.matchinfo!.matchInfo!
+                                      .tossResults!.tossWinnerName ??
+                                  'Toss didnt take place',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            // Hosts to
+                          ],
+                        );
+                }),
                 const SizedBox()
               ],
             ),

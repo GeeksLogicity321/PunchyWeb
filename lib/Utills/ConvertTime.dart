@@ -5,7 +5,7 @@ String EpochToDate(int epochTimestamp) {
 
   // Format DateTime
   String formattedDateTime =
-      "${_getMonth(dateTime.month)} ${dateTime.day}, ${_formatTime(dateTime)}";
+      "${_getMonth(dateTime.month)} ${dateTime.day}, ${formatTime(dateTime)}";
 
   return formattedDateTime;
 }
@@ -29,7 +29,7 @@ String _getMonth(int month) {
   return months[month - 1];
 }
 
-String _formatTime(DateTime dateTime) {
+String formatTime(DateTime dateTime) {
   int hour = dateTime.hour;
   int minute = dateTime.minute;
   String period = hour < 12 ? 'AM' : 'PM';
@@ -44,9 +44,6 @@ String _formatTime(DateTime dateTime) {
 
   return formattedTime;
 }
-
-
-
 
 String convertEpochToTimeAgo(String epochTimeStr) {
   DateTime currentDateTime = DateTime.now();
@@ -69,6 +66,3 @@ String convertEpochToTimeAgo(String epochTimeStr) {
     return 'Just now';
   }
 }
-
-
-

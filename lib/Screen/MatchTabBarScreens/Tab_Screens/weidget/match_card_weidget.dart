@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../constant/constants.dart';
 import '../../../../Models/LiveMatchesModel.dart';
+import '../../../../Prorvider/SpecificMatchDetailProvider.dart';
 import '../../../../constant/api_constants.dart';
 import '../../../MatchScreen/MatchDetailsScreen.dart';
 
@@ -25,6 +27,9 @@ class MatchCardWeidget extends StatelessWidget {
             //     match.matchInfo!.team2!.teamId!);
             // Provider.of<ScoreCardProvider>(context, listen: false)
             // .fetchScoreCardWithRetry();
+            context
+                .read<SpecificMatchDetailProvider>()
+                .setSelected(match.matchInfo!.matchId!);
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MatchStatusScreen()));
