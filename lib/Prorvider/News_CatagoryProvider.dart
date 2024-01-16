@@ -30,7 +30,6 @@ class NewsCatagoryProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-
         _catagories = Catagory.fromJson(jsonResponse);
         hasCatagorydata = true;
         notifyListeners();

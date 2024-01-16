@@ -24,11 +24,11 @@ class Squads extends StatelessWidget {
               Consumer<SpecificMatchDetailProvider>(
                   builder: (_, specificMatchDetailProvider, __) {
                 return specificMatchDetailProvider.matchinfoIsLoading
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Text(
                         specificMatchDetailProvider
                             .matchinfo!.matchInfo!.team1!.name!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: kSecondaryColor,
                             fontWeight: FontWeight.bold),
                       );
@@ -39,11 +39,11 @@ class Squads extends StatelessWidget {
               Consumer<SpecificMatchDetailProvider>(
                   builder: (_, specificMatchDetailProvider, __) {
                 return specificMatchDetailProvider.matchinfoIsLoading
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Text(
                         specificMatchDetailProvider
                             .matchinfo!.matchInfo!.team2!.name!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: kSecondaryColor,
                             fontWeight: FontWeight.bold),
                       );
@@ -57,84 +57,99 @@ class Squads extends StatelessWidget {
           child: Consumer<SpecificMatchDetailProvider>(
               builder: (_, specificMatchDetailProvider, __) {
             return specificMatchDetailProvider.matchinfoIsLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    itemCount: specificMatchDetailProvider
-                        .matchinfo!.matchInfo!.team1!.playerDetails!.length,
-                    itemBuilder: (context, index) {
-                      final team1 = specificMatchDetailProvider
-                          .matchinfo!.matchInfo!.team1!.playerDetails![index];
-                      final team2 = specificMatchDetailProvider
-                          .matchinfo!.matchInfo!.team2!.playerDetails![index];
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0.25.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 7.h,
-                              width: 49.5.w,
-                              child: ListTile(
-                                onTap: () {},
-                                tileColor: kSecondaryColor,
-                                leading: ClipOval(
-                                  child: Image.network(
-                                    ApiConstants.image +
-                                        team1.faceImageId.toString(),
-                                    width: 50,
-                                    height: 50,
-                                    fit: BoxFit.fitWidth,
+                : Padding(
+                    padding: EdgeInsets.symmetric(vertical: 0.25.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: specificMatchDetailProvider.matchinfo!
+                                .matchInfo!.team1!.playerDetails!.length,
+                            itemBuilder: (context, index) {
+                              final team1 = specificMatchDetailProvider
+                                  .matchinfo!
+                                  .matchInfo!
+                                  .team1!
+                                  .playerDetails![index];
+                              return SizedBox(
+                                height: 7.h,
+                                child: ListTile(
+                                  onTap: () {},
+                                  tileColor: kSecondaryColor,
+                                  leading: ClipOval(
+                                    child: Image.network(
+                                      ApiConstants.image +
+                                          team1.faceImageId.toString(),
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  title: Text(
+                                    team1.fullName ?? '',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  subtitle: Text(
+                                    team1.role ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: Colors.grey, fontSize: 7),
                                   ),
                                 ),
-                                title: Text(
-                                  team1.fullName!,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                subtitle: Text(
-                                  team1.role!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: Colors.grey, fontSize: 7),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 7.h,
-                              width: 49.5.w,
-                              child: ListTile(
-                                onTap: () {},
-                                tileColor: kSecondaryColor,
-                                leading: ClipOval(
-                                  child: Image.network(
-                                    ApiConstants.image +
-                                        team2.faceImageId.toString(),
-                                    width: 50,
-                                    height: 50,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                                title: Text(
-                                  team2.fullName!,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                subtitle: Text(
-                                  team2.role!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: Colors.grey, fontSize: 7),
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
-                      );
-                    },
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: specificMatchDetailProvider.matchinfo!
+                                .matchInfo!.team2!.playerDetails!.length,
+                            itemBuilder: (context, index) {
+                              final team2 = specificMatchDetailProvider
+                                  .matchinfo!
+                                  .matchInfo!
+                                  .team2!
+                                  .playerDetails![index];
+                              return SizedBox(
+                                height: 7.h,
+                                child: ListTile(
+                                  onTap: () {},
+                                  tileColor: kSecondaryColor,
+                                  leading: ClipOval(
+                                    child: Image.network(
+                                      ApiConstants.image +
+                                          team2.faceImageId.toString(),
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  title: Text(
+                                    team2.fullName ?? '',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  subtitle: Text(
+                                    team2.role ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: Colors.grey, fontSize: 7),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   );
           }),
         )
