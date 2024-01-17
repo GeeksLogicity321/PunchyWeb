@@ -6,6 +6,7 @@ import '../Models/CommentryListMode.dart';
 import '../Models/MatchInfoModel.dart';
 
 import '../Models/OversModel.dart';
+import '../Models/ScoreCardModel.dart';
 import '../constant/api_constants.dart';
 
 class SpecificMatchDetailProvider extends ChangeNotifier {
@@ -117,6 +118,43 @@ class SpecificMatchDetailProvider extends ChangeNotifier {
     } catch (e) {
       _oversInfoIsLoading = false;
       print('error:$e');
+    }
+    notifyListeners();
+    fetchScoreCard();
+  }
+
+  ScoreCardModel? _scoreCard;
+  ScoreCardModel? get scoreCard => _scoreCard;
+  bool _scoreCardIsLoading = true;
+  bool get scoreCardIsLoading => _scoreCardIsLoading;
+
+  Future<void> fetchScoreCard() async {
+    _scoreCardIsLoading = true;
+    notifyListeners();
+    try {
+      _scoreCard = null;
+
+      final Uri url = Uri.parse(ApiConstants.scoreCard + selected.toString());
+
+      final response = await http.get(
+        url,
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        _scoreCard = ScoreCardModel.fromJson(jsonResponse);
+
+        _scoreCardIsLoading = false;
+        notifyListeners();
+      } else {
+        _scoreCardIsLoading = false;
+        throw Exception(
+            'Error cannot connect to matches/match-scorecard/$_selected');
+      }
+    } catch (e) {
+      _scoreCardIsLoading = false;
+      print('error:$e');
+      rethrow;
     }
     notifyListeners();
   }
